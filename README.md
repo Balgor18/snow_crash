@@ -18,3 +18,9 @@ After this we found the answer is `nottoohardhere`.
 
 After that we have to log with `flag00` and give the password `nottoohardhere`.
 When we are connected we just have to use `getflag`.
+
+When we got the flag we have to connect to the next level.
+
+## Level 01
+Look at the file we found in the previous level.
+Yes the name of the file is **john**. Let use [John the ripper](https://fr.wikipedia.org/wiki/John_the_Ripper)

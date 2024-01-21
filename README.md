@@ -23,4 +23,26 @@ When we got the flag we have to connect to the next level.
 
 ## Level 01
 Look at the file we found in the previous level.
-Yes the name of the file is **john**. Let use [John the ripper](https://fr.wikipedia.org/wiki/John_the_Ripper)
+Yes the name of the file is **john**. Let use [John the ripper](https://fr.wikipedia.org/wiki/John_the_Ripper).
+
+```bash
+level01@SnowCrash:~$ cat /etc/passwd | grep flag01
+```
+
+Install [John](https://www.openwall.com/john/) on your computer and give it the result of the previous command.
+
+After copy the file execute `john`. In my case i'm using [kali](https://www.kali.org/). 
+```bash
+kali@kali:~$ john --wordlist passwd
+kali@kali:~$ john --show passwd
+```
+After the second command you should have this result.
+```bash
+flag01:abcdefg:3001:3001::/home/flag/flag01:/bin/bash
+1 password hash cracked, 0 left
+```
+
+After that we have to log with `flag01` and give the password `abcdefg`.
+When we are connected we just have to use `getflag`.
+
+When we got the flag we have to connect to the next level.

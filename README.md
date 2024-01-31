@@ -323,3 +323,32 @@ ln -s /home/user/level08/token /tmp/pwd && ./level08 /tmp/pwd
 After that we have to log with `flag08` and give the password `quif5eloekouj29ke0vouxean`.
 When we are connected we just have to use `getflag`.
 
+## Level 09
+
+When we are logging we can see :
+```bash
+level09@SnowCrash:~$ ls -l
+total 12
+-rwsr-sr-x 1 flag09 level09 7640 Mar  5  2016 level09
+----r--r-- 1 flag09 level09   26 Mar  5  2016 token
+```
+
+We copy the file on your own machine and we can see i get a param in enter.
+```bash
+scp -P 4242 level09@192.168.1.30:~/token ~/Desktop
+chmod +r token
+```
+
+We deduce that the executable expects a string as an argument. For decoding it we jsut have to modif each charactere by incrementing index.
+
+Example of code we can use :
+```python
+import sys
+
+arg = sys.argv[1].encode(errors=\"surrogateescape\")
+
+print(\"\".join([chr(l - i) for i, l in enumerate(arg) if l - i > 0]))
+```
+
+After that we have to log with `flag09` and give the password `s5cAJpM8ev6XHw998pRWG728z`.
+When we are connected we just have to use `getflag`.

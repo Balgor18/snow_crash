@@ -450,3 +450,57 @@ Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
 When you cat the file we can see some regex.
 
 After that we have to log with `level13` and give the password `g1qKMiRpXf53AWhDaU7FEkczr`.
+
+## Level 13
+
+In this level we can found a binary. If we `ltrace` the program we can see he call getuid. The program expect 4242.
+
+```bash
+level13@SnowCrash:~$ ls -l
+total 8
+-rwsr-sr-x 1 flag13 level13 7303 Aug 30  2015 level13
+```
+```bash
+level13@SnowCrash:~$ ltrace ./level13
+__libc_start_main(0x804858c, 1, 0xbffff7b4, 0x80485f0, 0x8048660 <unfinished ...>
+getuid()                                                        = 2013
+getuid()                                                        = 2013
+printf("UID %d started us but we we expe"..., 2013UID 2013 started us but we we expect 4242
+)             = 42
+exit(1 <unfinished ...>
++++ exited (status 1) +++
+```
+
+For this one we create a program that change the comportement of `getuid` for return 4242. 
+
+```c
+#include <sys/types.h>
+
+uid_t getuid(void) {
+	return 4242;
+}
+```
+```
+level13@SnowCrash:~$ cd /tmp
+level13@SnowCrash:/tmp$ gcc /tmp/getuid.c -shared -o getuid.so
+level13@SnowCrash:/tmp$ export LD_PRELOAD=/tmp/getuid.so
+```
+
+
+After modify the env `LD_PRELOAD` we can recheck `ltrace` :
+```bash
+level13@SnowCrash:~$ ltrace ./level13
+__libc_start_main(0x804858c, 1, 0xbffff7a4, 0x80485f0, 0x8048660 <unfinished ...>
+getuid()                                                        = 4242
+strdup("boe]!ai0FB@.:|L6l@A?>qJ}I")                             = 0x0804b008
+printf("your token is %s\n", "2A31L79asukciNyi8uppkEuSx"your token is 2A31L79asukciNyi8uppkEuSx
+)       = 40
++++ exited (status 40) +++
+```
+As we can see the fonction `getuid` return 4242.
+
+```bash
+level13@SnowCrash:~$ ./level13
+2A31L79asukciNyi8uppkEuSx
+```
+After that we have to log with `level14` and give the password `2A31L79asukciNyi8uppkEuSx`.

@@ -504,3 +504,11 @@ level13@SnowCrash:~$ ./level13
 2A31L79asukciNyi8uppkEuSx
 ```
 After that we have to log with `level14` and give the password `2A31L79asukciNyi8uppkEuSx`.
+
+
+## 🙇 Author
+#### Florian Catinaud
+- Github: [@balgor18](https://github.com/balgor18)
+#### Victor Portenseigne
+- Github: [@vportens](https://github.com/https://github.com/vportens)
+        
